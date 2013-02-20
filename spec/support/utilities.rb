@@ -1,10 +1,3 @@
-def sign_up_valid_user
-  fill_in "Name",         with: "Example User"
-  fill_in "Email",        with: "user@example.com"
-  fill_in "Password",     with: "foobar"
-  fill_in "Confirmation", with: "foobar"
-end
-
 def sign_in(user)
   visit signin_path
   fill_in "Email",    with: user.email
@@ -12,4 +5,19 @@ def sign_in(user)
   click_button "Sign in"
   # Sign in when not using Capybara as well.
   cookies[:remember_token] = user.remember_token
+end
+
+def sign_up_user
+  fill_in "Name",         with: "Example User"
+  fill_in "Email",        with: "user@example.com"
+  fill_in "Password",     with: "foobar"
+  fill_in "Confirm Password", with: "foobar"
+end
+
+def edit_user(user)
+  fill_in "Name",             with: new_name
+  fill_in "Email",            with: new_email
+  fill_in "Password",         with: user.password
+  fill_in "Confirm Password", with: user.password
+  click_button "Save changes"
 end

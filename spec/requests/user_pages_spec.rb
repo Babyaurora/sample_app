@@ -38,7 +38,7 @@ describe "UserPages" do
     end
 
     describe "with valid information" do
-      before { sign_up_valid_user }
+      before { sign_up_user }
 
       it "should create a user" do
         expect { click_button submit }.to change(User, :count).by(1)
@@ -94,13 +94,7 @@ describe "UserPages" do
     describe "with valid information" do
       let(:new_name)  { "New Name" }
       let(:new_email) { "new@example.com" }
-      before do
-        fill_in "Name",             with: new_name
-        fill_in "Email",            with: new_email
-        fill_in "Password",         with: user.password
-        fill_in "Confirm Password", with: user.password
-        click_button "Save changes"
-      end
+      before { edit_user user }
 
       it { should have_selector('title', text: new_name) }
       it { should have_selector('div.alert.alert-success') }
