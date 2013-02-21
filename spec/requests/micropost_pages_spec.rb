@@ -40,5 +40,11 @@ describe "MicropostPages" do
         expect { click_link "delete" }.to change(Micropost, :count).by(-1)
       end
     end
+    
+    describe "as incorrect user" do
+      let(:different_user) { FactoryGirl.create(:user, email: "different@example.com") }
+      before { delete micropost_path(FactoryGirl.create(:micropost, user: different_user)) }
+      specify { response.should redirect_to(root_path) }
+    end
   end
 end
