@@ -6,4 +6,8 @@ class Micropost < ActiveRecord::Base
   
   validates :user_id, presence: true
   validates :content, presence: true, length: { maximum: 140 }
+  
+  def self.from_users_followed_by(user)
+    where("user_id IN (SELECT followed_id FROM relationships WHERE follower_id = ?) OR user_id = ?", user, user)
+  end
 end
